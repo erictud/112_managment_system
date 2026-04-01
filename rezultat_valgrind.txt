@@ -1,30 +1,20 @@
-==45958== 24 bytes in 1 blocks are definitely lost in loss record 5 of 15
-==45958==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==45958==    by 0x109563: initQueue (in /home/eric-tudorica/Desktop/FACULTATE/AN I/SEM2/SDA/tema1/tema1)
-==45958==    by 0x109917: main (in /home/eric-tudorica/Desktop/FACULTATE/AN I/SEM2/SDA/tema1/tema1)
-==45958== 
-==45958== 24 bytes in 1 blocks are definitely lost in loss record 6 of 15
-==45958==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==45958==    by 0x109563: initQueue (in /home/eric-tudorica/Desktop/FACULTATE/AN I/SEM2/SDA/tema1/tema1)
-==45958==    by 0x109928: main (in /home/eric-tudorica/Desktop/FACULTATE/AN I/SEM2/SDA/tema1/tema1)
-==45958== 
-==45958== 24 bytes in 1 blocks are definitely lost in loss record 7 of 15
-==45958==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==45958==    by 0x109563: initQueue (in /home/eric-tudorica/Desktop/FACULTATE/AN I/SEM2/SDA/tema1/tema1)
-==45958==    by 0x109939: main (in /home/eric-tudorica/Desktop/FACULTATE/AN I/SEM2/SDA/tema1/tema1)
-==45958== 
-==45958== 64 (24 direct, 40 indirect) bytes in 1 blocks are definitely lost in loss record 11 of 15
-==45958==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==45958==    by 0x1094A5: initList (in /home/eric-tudorica/Desktop/FACULTATE/AN I/SEM2/SDA/tema1/tema1)
-==45958==    by 0x109906: main (in /home/eric-tudorica/Desktop/FACULTATE/AN I/SEM2/SDA/tema1/tema1)
-==45958== 
-==45958== 102 (24 direct, 78 indirect) bytes in 1 blocks are definitely lost in loss record 12 of 15
-==45958==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==45958==    by 0x1094A5: initList (in /home/eric-tudorica/Desktop/FACULTATE/AN I/SEM2/SDA/tema1/tema1)
-==45958==    by 0x1098DA: main (in /home/eric-tudorica/Desktop/FACULTATE/AN I/SEM2/SDA/tema1/tema1)
-==45958== 
-==45958== 108 (24 direct, 84 indirect) bytes in 1 blocks are definitely lost in loss record 13 of 15
-==45958==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==45958==    by 0x109563: initQueue (in /home/eric-tudorica/Desktop/FACULTATE/AN I/SEM2/SDA/tema1/tema1)
-==45958==    by 0x10975C: main (in /home/eric-tudorica/Desktop/FACULTATE/AN I/SEM2/SDA/tema1/tema1)
-==45958== 
+==74013== 14 bytes in 1 blocks are definitely lost in loss record 1 of 10
+==74013==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==74013==    by 0x1092D2: initIncident (in /home/eric-tudorica/Desktop/FACULTATE/AN I/SEM2/SDA/tema1/tema1)
+==74013==    by 0x109BA5: main (in /home/eric-tudorica/Desktop/FACULTATE/AN I/SEM2/SDA/tema1/tema1)
+==74013== 
+==74013== 73 (40 direct, 33 indirect) bytes in 1 blocks are definitely lost in loss record 4 of 10
+==74013==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==74013==    by 0x1092AD: initIncident (in /home/eric-tudorica/Desktop/FACULTATE/AN I/SEM2/SDA/tema1/tema1)
+==74013==    by 0x109D4F: main (in /home/eric-tudorica/Desktop/FACULTATE/AN I/SEM2/SDA/tema1/tema1)
+==74013== 
+==74013== 191 (16 direct, 175 indirect) bytes in 1 blocks are definitely lost in loss record 5 of 10
+==74013==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==74013==    by 0x10990F: push (in /home/eric-tudorica/Desktop/FACULTATE/AN I/SEM2/SDA/tema1/tema1)
+==74013==    by 0x109FF9: main (in /home/eric-tudorica/Desktop/FACULTATE/AN I/SEM2/SDA/tema1/tema1)
+==74013== 
+==74013== 601 (112 direct, 489 indirect) bytes in 7 blocks are definitely lost in loss record 10 of 10
+==74013==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==74013==    by 0x109346: initIntervention (in /home/eric-tudorica/Desktop/FACULTATE/AN I/SEM2/SDA/tema1/tema1)
+==74013==    by 0x109F3D: main (in /home/eric-tudorica/Desktop/FACULTATE/AN I/SEM2/SDA/tema1/tema1)
+==74013== 

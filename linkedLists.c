@@ -21,4 +21,27 @@ void addToList(DoubleLinkedList *list, void *data){
     list->tail->prev = newNode;
 }
 
+void delFromList(DoubleLinkedList *list, int id, int (*cmp)(void *data, int id)){
+    Node *p = list->head->next;
+    while(p != list->head){
+        if(cmp(p->data, id) == 1){
+            p->prev->next = p->next;
+            p->next->prev = p->prev;
+            free(p);
+            return;
+        }
+        p = p->next;
+    }
+}
 
+void freeList(DoubleLinkedList **list, int cleanData){
+    Node *p = (*list)->head->next, *q;
+    while(p != (*list)->head){
+        q = p;
+        p = p->next;
+        free(q);
+    }
+    free((*list)->head->data);
+    free((*list)->head);
+    free(*list);
+}
