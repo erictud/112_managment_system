@@ -14,5 +14,6 @@ typedef struct DoubleLinkedList {
 DoubleLinkedList *initList(void *dummyNodeData);
 void addToList(DoubleLinkedList *list, void *data);
 void delFromList(DoubleLinkedList *list, int id, int (*cmp)(void *data, int id));
-void freeList(DoubleLinkedList **list, int cleanData);
+void freeList(DoubleLinkedList **list, void (*freeDynamicPart)(void *data));
+
 #endif

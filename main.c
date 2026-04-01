@@ -6,6 +6,8 @@
 #include "linkedLists.h" // linked list def. & methods
 #include "queueStack.h"  // queue and stack def. & methods
 
+// comparing function that matches a intervention
+// pointer to a specific id
 int cmpInterventionToIndex(void *data, int id)
 {
     Intervention *inv = (Intervention *)data;
@@ -16,6 +18,7 @@ int cmpInterventionToIndex(void *data, int id)
 int main()
 {
     FILE *inputFilePtr = fopen("tema1.in", "rt");
+    FILE *outputFilePtr = fopen("tema1.out", "wt");
 
     // Reading units from input file & init. unit
     Queue *queue_available_units = initQueue();
@@ -45,7 +48,6 @@ int main()
     Stack *interventions_history = NULL;
 
     // Operations
-    FILE *outputFilePtr = fopen("tema1.out", "wt");
     int numOfOperations;
     char option[25];
     fscanf(inputFilePtr, "%d", &numOfOperations);
@@ -54,15 +56,19 @@ int main()
         fscanf(inputFilePtr, "%s", option);
         if (strcmp(option, "ADD_INCIDENT") == 0)
         {
+            //parsing incident details
             int id;
             char priority[7], buff[1000];
             fscanf(inputFilePtr, "%d %s", &id, priority);
             fgets(buff, 999, inputFilePtr);
+
             // delete \n & " from the end of buff
             buff[strlen(buff) - 2] = '\0';
+
             // passing buff+2 as description to get rid of leading space and "
             Incident *newIncident = initIncident(id, priority, buff + 2, "queued");
             addToList(incidentList, newIncident);
+
             // adding incident to its priority queue
             if (strcmp(priority, "high") == 0)
             {
@@ -87,6 +93,7 @@ int main()
             Queue *qList[3] = {queue_high, queue_medium, queue_low};
             for (int i = 0; i <= 2; i++)
             {
+                // iterating queues in priority order to det. which incident to solve 
                 if (isEmptyQueue(qList[i]) == 0 && isEmptyQueue(queue_available_units) == 0)
                 {
                     valid = 1;
@@ -95,15 +102,18 @@ int main()
                     Unit *unit = (Unit *)queue_available_units->front->data;
                     Intervention *newIntervention = initIntervention(inc, unit);
                     addToList(interventionList, newIntervention);
-                    // popping queues
+
+                    // making unit unavailable by popping queue
                     dequeue(qList[i]);
                     dequeue(queue_available_units);
+
                     // getting id for incident and unit in order to modify status
                     int idInc = inc->id;
                     int idUnit = unit->id;
                     modifyIncident(incidentList, idInc, "intervened");
                     modifyUnit(units, numOfUnits, idUnit, 0);
-                    // adding to stack
+
+                    // adding intervetion to history stack
                     interventions_history = push(interventions_history, newIntervention);
                     break;
                 }
@@ -119,6 +129,7 @@ int main()
             int valid = 0;
             while (isEmptyStack(interventions_history) == 0)
             {
+                // determining last intervention dispatched
                 Stack *s = top(interventions_history);
                 interventions_history = pop(interventions_history);
                 Intervention *interv = (Intervention *)s->data;
@@ -128,11 +139,15 @@ int main()
                     // getting id for incident and unit in order to modify status
                     int idInc = interv->incident->id;
                     int idUnit = interv->unit->id;
+
                     // deleting intervention from list
                     delFromList(interventionList, idInc, cmpInterventionToIndex);
                     modifyIncident(incidentList, idInc, "queued");
                     modifyUnit(units, numOfUnits, idUnit, 1);
+
+                    // making unit & incident again available by queueing them
                     enqueue(queue_available_units, interv->unit);
+
                     if (strcmp(interv->incident->priority, "high") == 0)
                     {
                         enqueueFirst(queue_high, interv->incident);
@@ -143,10 +158,14 @@ int main()
                     }
                     else
                         enqueueFirst(queue_low, interv->incident);
-                    break;
                     free(s);
+                    free(interv);
+                    break;
                 }
+                free(s);
             }
+
+            // error - no active dispatch found
             if (valid == 0)
                 fprintf(outputFilePtr, "INVALID OPERATION! ERROR 404\n");
         }
@@ -154,12 +173,14 @@ int main()
         {
             int valid = 0, idIncFind;
             fscanf(inputFilePtr, "%d", &idIncFind);
+
             // trying to find the intervention with the specific incident id
             Node *p = interventionList->head->next;
             while (p != interventionList->head)
             {
                 Intervention *interv = (Intervention *)p->data;
                 int intervIncId = interv->incident->id;
+                // making sure the incident has status intervened
                 if (intervIncId == idIncFind && strcmp(interv->incident->status, "intervened") == 0)
                 {
                     valid = 1;
@@ -169,6 +190,8 @@ int main()
                 }
                 p = p->next;
             }
+
+            // error - invalid id or incident not in the right state
             if (valid == 0)
                 fprintf(outputFilePtr, "INVALID OPERATION! ERROR 404\n");
         }
@@ -182,6 +205,8 @@ int main()
                     valid = 1;
                     fprintf(outputFilePtr, "Unit %d is type %c and is %s\n", units[i].id, units[i].type, (units[i].availability == 1 ? "available" : "unavailable"));
                 }
+            
+            // error - invalid unit id
             if (valid == 0)
                 fprintf(outputFilePtr, "INVALID OPERATION! ERROR 404\n");
         }
@@ -190,6 +215,7 @@ int main()
             int idIncident, valid = 0;
             fscanf(inputFilePtr, "%d", &idIncident);
             Node *p = incidentList->head->next;
+            // trying to find incident by id
             while (p != incidentList->head)
             {
                 Incident *inc = (Incident *)p->data;
@@ -201,12 +227,15 @@ int main()
                 }
                 p = p->next;
             }
+
+            // error - incorect id
             if (valid == 0)
                 fprintf(outputFilePtr, "INVALID OPERATION! ERROR 404\n");
         }
-        else
+        else // SHOW_INTERVENTIONS case
         {
             Node *p = interventionList->head->next;
+            // error - intervention list is void
             if (p->next == p)
                 fprintf(outputFilePtr, "No intervention has been initiated\n");
             else
@@ -222,10 +251,12 @@ int main()
         }
     }
 
-    // Clean-up dynamic memory
-    freeList(&incidentList, 1);
+    // freeing dynamic memory
+    fclose(inputFilePtr);
+    fclose(outputFilePtr);
+    freeList(&incidentList, freeIncident);
     free(units);
-    freeList(&interventionList, 1);
+    freeList(&interventionList, NULL);
     freeQueue(&queue_available_units);
     freeQueue(&queue_high);
     freeQueue(&queue_low);

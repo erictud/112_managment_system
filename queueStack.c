@@ -1,6 +1,8 @@
 #include "queueStack.h"
 #include <stdlib.h>
 
+// Queue methods
+
 Queue *initQueue(){
     Queue *q = malloc(sizeof(Queue));
     q->front = q->rear = NULL;
@@ -12,7 +14,7 @@ void enqueue(Queue *q, void *data){
     QueueCell *newNode = malloc(sizeof(QueueCell));
     newNode->data = data;
     newNode->next = NULL;
-    if(q->front == NULL){
+    if(q->front == NULL){ // void ququw
         q->front = q->rear = newNode;
     }else{
         q->rear->next = newNode;
@@ -61,6 +63,8 @@ void freeQueue(Queue **q){
     }
     free(*q);
 }
+
+// Stack methods
 
 Stack *push(Stack *s, void *data) {
     Stack *t = malloc(sizeof(Stack));

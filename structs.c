@@ -4,9 +4,11 @@
 #include <string.h>
 #include <string.h>
 
+// initializing incident
 Incident *initIncident(int id, char *priority, char *description, char *status){
     Incident *inc = malloc(sizeof(Incident));
     inc->id = id;
+    // allocating the exact amount
     inc->description = malloc(strlen(description)+1);
     strcpy(inc->description, description);
     strcpy(inc->priority, priority);
@@ -14,6 +16,7 @@ Incident *initIncident(int id, char *priority, char *description, char *status){
     return inc;
 }
 
+// initializing intervention
 Intervention *initIntervention(Incident *incident, Unit *unit){
     Intervention *inv = malloc(sizeof(Intervention));
     inv->incident = incident;
@@ -21,6 +24,7 @@ Intervention *initIntervention(Incident *incident, Unit *unit){
     return inv;
 }
 
+// incident modification
 void modifyIncident(DoubleLinkedList *list, int id, char *status){
     Node *p = list->head->next;
     while(p != list->head){
@@ -34,6 +38,7 @@ void modifyIncident(DoubleLinkedList *list, int id, char *status){
     }
 }
 
+// unit modification
 void modifyUnit(Unit *units, int numUnits, int idUnit, int availability){
     for(int i = 0; i < numUnits; i++)
         if(units[i].id == idUnit){
@@ -41,3 +46,9 @@ void modifyUnit(Unit *units, int numUnits, int idUnit, int availability){
             return;
         }
 } 
+
+// function to free the dynamic description part of an incident
+void freeIncident(void *data){
+    Incident *inc = (Incident *)data;
+    free(inc->description);
+}

@@ -22,16 +22,11 @@ typedef struct Intervention {
     struct Unit *unit;
 } Intervention;
 
-typedef struct System {
-    struct Unit *units;
-    struct Incidents *incidents;
-    struct Intervention* interventions;
-} System;
-
 // methods
 Incident *initIncident(int id, char *priority, char *description, char *status);
 Intervention *initIntervention(Incident *incident, Unit *unit);
 void modifyIncident(DoubleLinkedList *list, int id, char *status);
 void modifyUnit(Unit *units, int numUnits, int idUnit, int availability);
+void freeIncident(void *data);
 
 #endif
