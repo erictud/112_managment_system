@@ -1,3 +1,5 @@
+#include "linkedLists.h"
+
 #ifndef STRUCTS_H
 #define STRUCTS_H
 // General use definitions
@@ -29,4 +31,7 @@ typedef struct System {
 // methods
 Incident *initIncident(int id, char *priority, char *description, char *status);
 Intervention *initIntervention(Incident *incident, Unit *unit);
+void modifyIncident(DoubleLinkedList *list, int id, char *status);
+void modifyUnit(Unit *units, int numUnits, int idUnit, int availability);
+
 #endif

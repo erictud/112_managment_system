@@ -12,5 +12,6 @@ typedef struct DoubleLinkedList {
 } DoubleLinkedList;
 
 DoubleLinkedList *initList(void *dummyNodeData);
+void addToList(DoubleLinkedList *list, void *data);
 
 #endif

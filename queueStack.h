@@ -1,5 +1,10 @@
-#ifndef QUEUE_H
-#define QUEUE_H
+#ifndef QUEUESTACK_H
+#define QUEUESTACK_H
+
+typedef struct Stack {
+    void *data;
+    struct Stack *next;
+} Stack;
 
 typedef struct QueueCell {
     void *data;
@@ -12,5 +17,8 @@ typedef struct Queue {
 } Queue;
 
 Queue *initQueue();
+void enqueue(Queue *q, void *data);
+int isEmptyQueue(Queue *q);
+Stack *push(Stack *s, void *data);
 
 #endif
